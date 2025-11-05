@@ -140,7 +140,14 @@
     @apply bg-gray-900 text-foreground;
   }
 }
-
+@layer utilities{
+  .home-wrapper {
+    @apply text-gray-400 flex-col gap-4 md:gap-10 items-center sm:items-start
+  }
+  .header-wrapper {
+    @apply flex justify-between items-center px-6 py-4 text-gray-500;
+  }
+}
 
 /* Market News Component Styles */
 .scrollbar-hide {
