@@ -4,9 +4,12 @@ import {CountrySelectField} from "@/components/ui/forms/CountrySelectField";
 import FooterLink from "@/components/ui/forms/FooterLink";
 import InputField from "@/components/ui/forms/InputField";
 import SelectField from "@/components/ui/forms/SelectField";
+import { signUpWithEmail } from "@/lib/actions/auth.actions";
 import { INVESTMENT_GOALS, PREFERRED_INDUSTRIES, RISK_TOLERANCE_OPTIONS } from "@/lib/constants";
+import { useRouter } from "next/navigation";
 import { on } from "node:stream";
 import {useForm} from "react-hook-form"
+import { toast } from "sonner";
 
 const SignUp = () => {
 const {register,handleSubmit,control,formState:{errors,isSubmitting}}=useForm<SignUpFormData>({
@@ -21,11 +24,18 @@ const {register,handleSubmit,control,formState:{errors,isSubmitting}}=useForm<Si
   },
   mode:"onBlur",
 });
+const router=useRouter();
 const onSubmit=async(data:SignUpFormData)=>{
 try {
- console.log(data) ;
+const result=await signUpWithEmail(data);
+if(result.success){
+  toast.success("Account created successfully!");
+  router.push("/");
+}
 } catch (error) {
   console.log(error);
+  toast.error("Signup failed",{
+    description:error instanceof Error ? error.message : "Failed to create a account!"})
 }
 }
   return (
