@@ -26,6 +26,7 @@ const {register,handleSubmit,control,formState:{errors,isSubmitting}}=useForm<Si
 });
 const router=useRouter();
 const onSubmit=async(data:SignUpFormData)=>{
+console.log("Form submitted", data); 
 try {
 const result=await signUpWithEmail(data);
 if(result.success){
@@ -49,7 +50,7 @@ if(result.success){
       placeholder="John Doe"
       register={register}
       error={errors.fullName}
-      validation={{required:"Full name is required",minLen:2}}
+      validation={{required:"Full name is required", minLength: 2}}
       />
       <InputField
       name="email"
@@ -58,16 +59,23 @@ if(result.success){
       placeholder="Enter your email e.g. JohnDoe@gmail.com"
       register={register}
       error={errors.email}
-      validation={{required:"email is required",pattern:/^\w+@\w+\.\w+$/,message:" Email is required"}}
-      />
+   validation={{
+  required: "Email is required",
+  pattern: {
+    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    message: "Invalid email format"
+  }
+}}
+
+ />
       <InputField
       name="password"
       type="password"
       label="Password"
       placeholder="Enter a strong password"
       register={register}
-      error={errors.fullName}
-      validation={{required:"Password is required",minLen:4}}
+      error={errors.password}
+      validation={{required:"Password is required",minLength:4}}
       />
       <CountrySelectField
       name={"country"}

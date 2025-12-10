@@ -1,3 +1,4 @@
+"use client"
 import { Button } from '@/components/ui/button';
 import FooterLink from '@/components/ui/forms/FooterLink';
 import InputField from '@/components/ui/forms/InputField';
