@@ -55,7 +55,7 @@ export const sendDailyNewsSummary = inngest.createFunction(
   {
     id: "daily-news-summary",
   },
-  [{ event: "app/send.daily.news" }, { cron: "* * * * *" }],
+  [{ event: "app/send.daily.news" }, { cron: "0 12 * * *" }],
   async ({ step }) => {
     const users = await step.run("get-all-users", gettAllUsersForNewsEmail);
     // Step #2: For each user, get watchlist symbols -> fetch news (fallback to general)
