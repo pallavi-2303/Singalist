@@ -55,7 +55,7 @@ export const sendDailyNewsSummary = inngest.createFunction(
   {
     id: "daily-news-summary",
   },
-  [{ event: "app/send.daily.news" }, { cron: "0 12 * * *" }],
+  [{ event: "app/send.daily.news" }, { cron: "* * * * *" }],
   async ({ step }) => {
     const users = await step.run("get-all-users", gettAllUsersForNewsEmail);
     // Step #2: For each user, get watchlist symbols -> fetch news (fallback to general)
@@ -84,7 +84,7 @@ export const sendDailyNewsSummary = inngest.createFunction(
       return perUser;
     });
     // Step #3: (placeholder) Summarize news via AI
-    const userNewsSummaries: { user: User; newsContent: string | null }[] = [];
+    const userNewsSummaries: { user: UserForNewsEmail; newsContent: string | null }[] = [];
     for (const { user, articles } of results) {
       try {
         const prompt = NEWS_SUMMARY_EMAIL_PROMPT.replace(

@@ -3,6 +3,11 @@ declare global {
         email: string;
         password: string;
     };
+     type UserForNewsEmail = {
+        email: string;
+        name?: string;
+        id?: string; // or _id?: string if MongoDB returns _id
+    };
 
     type SignUpFormData = {
         fullName: string;

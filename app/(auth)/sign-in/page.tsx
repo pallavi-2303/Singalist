@@ -20,7 +20,7 @@ const onSubmit=async(data:SignInFormData)=>{
   try {
  const result= await signInWithEmail(data); 
  if(result.success){
-   toast.success("Account created successfully!");
+   toast.success("Welcome Back!");
    router.push("/");
  } 
   } catch (error) {
@@ -39,15 +39,22 @@ const onSubmit=async(data:SignInFormData)=>{
                     placeholder="contact@jsmastery.com"
                     register={register}
                     error={errors.email}
-                    validation={{ required: 'Email is required', pattern: /^\w+@\w+\.\w+$/ }}
-                />
-                 <InputField
-                    name="email"
-                    label="Email"
-                    placeholder="contact@jsmastery.com"
+                   validation={{
+  required: "Email is required",
+  pattern: {
+    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    message: "Invalid email format"
+  }
+}}
+               />
+                <InputField
+                    name="password"
+                    label="Password"
+                    placeholder="Enter your password"
+                    type="password"
                     register={register}
-                    error={errors.email}
-                    validation={{ required: 'Email is required', pattern: /^\w+@\w+\.\w+$/ }}
+                    error={errors.password}
+                    validation={{ required: 'Password is required', minLength: 4 }}
                 />
                  <Button type="submit" disabled={isSubmitting} className="yellow-btn w-full mt-5">
                     {isSubmitting ? 'Signing In' : 'Sign In'}
